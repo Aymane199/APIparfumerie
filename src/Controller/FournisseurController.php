@@ -23,7 +23,7 @@ class FournisseurController extends AbstractController
     }
 
     /**
-     * @Route("/fournisseurs", name="fournisseur_show")
+     * @Route("/api/fournisseurs", name="fournisseur_show")
      */
     public function index()
     {
@@ -39,9 +39,11 @@ class FournisseurController extends AbstractController
 
         return $response;
     }
+
     /**
      * @Route("/fournisseur/create", name="fournisseur_create",methods={"POST"})
-     *
+     * @param Request $request
+     * @return Response
      */
     public function createAction(Request $request)
     {

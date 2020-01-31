@@ -15,7 +15,7 @@ class AgentController extends AbstractController
 {
 
     /**
-     * @Route("/agent", name="agent")
+     * @Route("/api/agents", name="agent")
      */
     public function index()
     {
