@@ -80,9 +80,9 @@ class Produit
     private $profitProduit;
 
     /**
-     * @var string
+     * @var json
      *
-     * @ORM\Column(name="attributes_produit", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="attributes_produit", type="json", nullable=false)
      */
     private $attributesProduit;
 
@@ -218,12 +218,12 @@ class Produit
         return $this;
     }
 
-    public function getAttributesProduit(): ?string
+    public function getAttributesProduit(): ?array
     {
         return $this->attributesProduit;
     }
 
-    public function setAttributesProduit(string $attributesProduit): self
+    public function setAttributesProduit(array $attributesProduit): self
     {
         $this->attributesProduit = $attributesProduit;
 

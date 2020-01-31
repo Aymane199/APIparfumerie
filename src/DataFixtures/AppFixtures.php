@@ -56,9 +56,14 @@ class AppFixtures extends Fixture
             $produit
                 ->setLibelleProduit($faker->company)
                 ->setPrixuProduit($faker->randomFloat(3,1,600))
-                ->setAttributesProduit('{ "image": ["https://empiric-bats.000webhostapp.com/Image1.png"], 
-                "genre":"homme" ,	
-                "volume": "50ml"}')
+                ->setAttributesProduit(array (
+                    'image' =>
+                        array (
+                            0 => 'https://empiric-bats.000webhostapp.com/Image1.png',
+                        ),
+                    'genre' => 'homme',
+                    'volume' => '50ml',
+                ))
                 ->setType("parfum")
                 ->setMarque($faker->company)
                 ->setDiscountProduit($faker->randomFloat(3,1,70))
