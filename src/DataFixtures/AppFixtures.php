@@ -28,6 +28,9 @@ class AppFixtures extends Fixture
         //Agent
         for($i = 0 ; $i<5 ;$i++) {
             $agent = new Agent();
+            $agent->setRoles(['ROLE_USER'])
+                ->setPassword('$2y$12$PnHrVHsxJxdWWCpICIWAZ.hqusPReayfLQgD6bkCFbmD.nble.OMy')
+                ->setEmail($faker->email);
             $manager->persist($agent);
         }
         //client
