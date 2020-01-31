@@ -1,0 +1,44 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+
+    encoders:
+      App\Entity\Agent:
+        algorithm: 'bcrypt'
+
+    providers:
+        users:
+            entity:
+                # the class of the entity that represents users
+                class: 'App\Entity\Agent'
+                # the property to query by - e.g. username, email, etc
+                property: 'email'
+        #in_memory: { memory: null }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        #main:
+         #   anonymous: lazy
+
+        # route login accessible aux utilisateurs anonymes
+        login:
+            pattern: ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        # chaque requete doit contenir les des informations d'auth
+        api:
+            pattern: ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+    #    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+     #   - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
