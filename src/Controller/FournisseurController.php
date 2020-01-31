@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Fournisseur;
 use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,6 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FournisseurController extends AbstractController
 {
+
+    private $serializer;
+    public function __construct(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+    }
+
     /**
      * @Route("/fournisseurs", name="fournisseur_show")
      */
@@ -27,7 +35,7 @@ class FournisseurController extends AbstractController
         $JMSfournisseur=$serializer->serialize($fournisseur , 'json');
 
         $response = new Response($JMSfournisseur);
-        $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
@@ -38,7 +46,7 @@ class FournisseurController extends AbstractController
     public function createAction(Request $request)
     {
         $data = $request->getContent();
-        $fournisseur = $this->get('jms_serializer')->deserialize($data, 'AppBundle\Entity\Fournisseur', 'json');
+        $fournisseur = $this->serializer->deserialize($data, 'App\Entity\Fournisseur', 'json');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($fournisseur);
