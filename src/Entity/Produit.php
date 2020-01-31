@@ -31,6 +31,20 @@ class Produit
     private $libelleProduit;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="marque", type="string", length=50, nullable=false)
+     */
+    private $marque;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=50, nullable=false)
+     */
+    private $type;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="prixU_produit", type="float", precision=10, scale=0, nullable=false)
@@ -116,6 +130,30 @@ class Produit
     public function setLibelleProduit(string $libelleProduit): self
     {
         $this->libelleProduit = $libelleProduit;
+
+        return $this;
+    }
+
+    public function getMarque(): ?string
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(string $marque): self
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

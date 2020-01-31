@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-migrations-bundle": "^2.1",
         "doctrine/doctrine-orm-module": "^2.1",
         "fzaninotto/faker": "^1.9",
         "jms/serializer-bundle": "^3.5",

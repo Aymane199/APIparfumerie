@@ -43,6 +43,20 @@ class Client
     private $adresseClient;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="zip_code_client", type="integer", nullable=false)
+     */
+    private $zipCodeClient;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country_client", type="string", length=100, nullable=false)
+     */
+    private $countryClient;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="telephone_client", type="string", length=50, nullable=false)
@@ -93,6 +107,30 @@ class Client
     public function setAdresseClient(string $adresseClient): self
     {
         $this->adresseClient = $adresseClient;
+
+        return $this;
+    }
+
+    public function getZipCodeClient(): ?int
+    {
+        return $this->zipCodeClient;
+    }
+
+    public function setZipCodeClient(int $zipCodeClient): self
+    {
+        $this->zipCodeClient = $zipCodeClient;
+
+        return $this;
+    }
+
+    public function getCountryClient(): ?string
+    {
+        return $this->countryClient;
+    }
+
+    public function setCountryClient(string $countryClient): self
+    {
+        $this->countryClient = $countryClient;
 
         return $this;
     }

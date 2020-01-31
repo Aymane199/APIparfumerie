@@ -31,6 +31,20 @@ class Fournisseur
     private $nomFournisseur;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse_fournisseur", type="string", length=100, nullable=false)
+     */
+    private $adresseFournisseur;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="zip_code_fournisseur", type="integer", nullable=false)
+     */
+    private $zipCodeFournisseur;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Produit", inversedBy="idFournisseur")
@@ -66,6 +80,30 @@ class Fournisseur
     public function setNomFournisseur(string $nomFournisseur): self
     {
         $this->nomFournisseur = $nomFournisseur;
+
+        return $this;
+    }
+
+    public function getAdresseFournisseur(): ?string
+    {
+        return $this->adresseFournisseur;
+    }
+
+    public function setAdresseFournisseur(string $adresseFournisseur): self
+    {
+        $this->adresseFournisseur = $adresseFournisseur;
+
+        return $this;
+    }
+
+    public function getZipCodeFournisseur(): ?int
+    {
+        return $this->zipCodeFournisseur;
+    }
+
+    public function setZipCodeFournisseur(int $zipCodeFournisseur): self
+    {
+        $this->zipCodeFournisseur = $zipCodeFournisseur;
 
         return $this;
     }

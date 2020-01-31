@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use App\Entity\Client;
 use App\Entity\Entreprise;
 use App\Entity\Fournisseur;
+use App\Entity\Produit;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -36,15 +37,38 @@ class AppFixtures extends Fixture
                 ->setPrenomClient($faker->lastName)
                 ->setAdresseClient($faker->address)
                 ->setEmailClient($faker->email)
-                ->setTelephoneClient($faker->phoneNumber);
+                ->setTelephoneClient($faker->phoneNumber)
+                ->setZipCodeClient($faker->randomNumber(5))
+                ->setCountryClient($faker->country);
             $manager->persist($client);
         }
         //fournisseur
         for($i = 0 ; $i<8 ;$i++) {
             $fournisseur = new Fournisseur();
-            $fournisseur->setNomFournisseur($faker->company);
+            $fournisseur->setNomFournisseur($faker->company)
+                ->setAdresseFournisseur($faker->address)
+                ->setZipCodeFournisseur($faker->randomNumber(5));
             $manager->persist($fournisseur);
         }
+        //produit
+        for($i = 0 ; $i<10 ;$i++) {
+            $produit= new Produit();
+            $produit
+                ->setLibelleProduit($faker->company)
+                ->setPrixuProduit($faker->randomFloat(3,1,600))
+                ->setAttributesProduit('{ "image": ["https://empiric-bats.000webhostapp.com/Image1.png"], 
+                "genre":"homme" ,	
+                "volume": "50ml"}')
+                ->setType("parfum")
+                ->setMarque($faker->company)
+                ->setDiscountProduit($faker->randomFloat(3,1,70))
+                ->setProfitProduit($faker->randomFloat(3,1,50))
+                ->setShippingcostProduit($faker->randomFloat(3,0,50))
+                ->setUrlProduit($faker->domainName);
+
+            $manager->persist($produit);
+        }
+
         $manager->flush();
     }
 }
