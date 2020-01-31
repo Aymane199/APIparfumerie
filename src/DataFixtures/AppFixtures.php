@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Agent;
+use App\Entity\Client;
 use App\Entity\Entreprise;
 use App\Entity\Fournisseur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
