@@ -64,6 +64,7 @@ class AppFixtures extends Fixture
                     'genre' => 'homme',
                     'volume' => '50ml',
                 ))
+                ->setDescProduit($faker->paragraph)
                 ->setType("parfum")
                 ->setMarque($faker->company)
                 ->setDiscountProduit($faker->randomFloat(3,1,70))

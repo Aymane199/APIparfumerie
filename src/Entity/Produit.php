@@ -87,6 +87,13 @@ class Produit
     private $attributesProduit;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="desc_produit", type="text", length=65535, nullable=true)
+     */
+    private $descProduit;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Fournisseur", mappedBy="numProduit")
@@ -226,6 +233,18 @@ class Produit
     public function setAttributesProduit(array $attributesProduit): self
     {
         $this->attributesProduit = $attributesProduit;
+
+        return $this;
+    }
+
+    public function getDescProduit(): ?string
+    {
+        return $this->descProduit;
+    }
+
+    public function setDescProduit(?string $descProduit): self
+    {
+        $this->descProduit = $descProduit;
 
         return $this;
     }

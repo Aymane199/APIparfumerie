@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Commande
  *
- * @ORM\Table(name="commande", indexes={@ORM\Index(name="Commande_Agent0_FK", columns={"id_agent"}), @ORM\Index(name="Commande_Client_FK", columns={"id_client"})})
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="Commande_Client_FK", columns={"id_client"}), @ORM\Index(name="Commande_Agent0_FK", columns={"id_agent"})})
  * @ORM\Entity
  */
 class Commande
