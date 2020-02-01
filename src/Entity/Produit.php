@@ -100,20 +100,6 @@ class Produit
      */
     private $idFournisseur;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Commande", inversedBy="numProduit")
-     * @ORM\JoinTable(name="lignecommande",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="num_produit", referencedColumnName="num_produit")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="num_cmd", referencedColumnName="num_cmd")
-     *   }
-     * )
-     */
-    private $numCmd;
 
     /**
      * Constructor
@@ -121,7 +107,6 @@ class Produit
     public function __construct()
     {
         $this->idFournisseur = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->numCmd = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getNumProduit(): ?int
@@ -272,32 +257,6 @@ class Produit
         if ($this->idFournisseur->contains($idFournisseur)) {
             $this->idFournisseur->removeElement($idFournisseur);
             $idFournisseur->removeNumProduit($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getNumCmd(): Collection
-    {
-        return $this->numCmd;
-    }
-
-    public function addNumCmd(Commande $numCmd): self
-    {
-        if (!$this->numCmd->contains($numCmd)) {
-            $this->numCmd[] = $numCmd;
-        }
-
-        return $this;
-    }
-
-    public function removeNumCmd(Commande $numCmd): self
-    {
-        if ($this->numCmd->contains($numCmd)) {
-            $this->numCmd->removeElement($numCmd);
         }
 
         return $this;

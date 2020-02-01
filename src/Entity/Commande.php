@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Commande
@@ -58,18 +59,18 @@ class Commande
     private $idClient;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Produit", mappedBy="numCmd")
+     * Une commande possède plusieurs ligne de commande
+     * @var \Commande
+     * @OneToMany(targetEntity="LigneCommande", mappedBy="commande")
      */
-    private $numProduit;
+    private $items;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->numProduit = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getNumCmd(): ?int
@@ -126,30 +127,26 @@ class Commande
     }
 
     /**
-     * @return Collection|Produit[]
+     * @return Collection|LigneCommande[]
      */
-    public function getNumProduit(): Collection
+    public function getItems(): Collection
     {
-        return $this->numProduit;
+        return $this->items;
     }
 
-    public function addNumProduit(Produit $numProduit): self
+    public function addItem(Produit $produit): self
     {
-        if (!$this->numProduit->contains($numProduit)) {
-            $this->numProduit[] = $numProduit;
-            $numProduit->addNumCmd($this);
+        if (!$this->items->contains($produit)) {
+            $this->items[] = $produit;
         }
-
         return $this;
     }
 
-    public function removeNumProduit(Produit $numProduit): self
+    public function removeItem(Produit $produit): self
     {
-        if ($this->numProduit->contains($numProduit)) {
-            $this->numProduit->removeElement($numProduit);
-            $numProduit->removeNumCmd($this);
+        if ($this->items->contains($produit)) {
+            $this->items->removeElement($produit);
         }
-
         return $this;
     }
 
