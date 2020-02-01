@@ -17,6 +17,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 
+/**
+ * @Route("api/produit")
+ */
 class ProductController extends AbstractController
 {
 
@@ -32,7 +35,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/api/produits", name="produits_filter")
+     * @Route("/", name="produits_filter")
      * @param Request $request
      * @return Response
      */
@@ -41,8 +44,12 @@ class ProductController extends AbstractController
 
         $dataJSON = json_decode($request->getContent(),true);
 
+        if($dataJSON == null)
+            $dataJSON['brand'] = null;
+
         //remplir les champs non existant ( 'brand','search...) avec une valeur null
         $this->tools->fieldIfNotExist($dataJSON,['brand','search','gender','type']);
+        //dump($dataJSON);
 
         //envoie de la requete
         $product = $this->produitRep
@@ -61,9 +68,8 @@ class ProductController extends AbstractController
 
             return $response;
     }
-
     /**
-     * @Route("/api/produits/{id}", name="produit_similaire")
+     * @Route("/similar/{id}", name="produit_similaire")
      * @param Produit $produit
      * @return Response
      */
@@ -81,6 +87,22 @@ class ProductController extends AbstractController
 
         return $response;
     }
+    /**
+     * @Route("/{id}", name="getproduit")
+     * @param Produit $produit
+     * @return Response
+     */
+    public function  getProduit(Produit $produit){
 
+        //serialisation
+        $serializer = SerializerBuilder::create()->build();
+        $JMSproduct=$serializer->serialize($produit, 'json');
+
+        //construction de la response json
+        $response = new Response($JMSproduct);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 
 }

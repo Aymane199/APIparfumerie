@@ -99,7 +99,7 @@ class ProduitRepository  extends ServiceEntityRepository
 
     }
 
-    //return query to use it for pagination
+
     public function getDisctProduitName_search_brand_gender_typeQuery(){
 
     }
