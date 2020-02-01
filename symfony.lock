@@ -179,7 +179,6 @@
     },
     "nesbot/carbon": {
         "version": "2.29.1"
-
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
@@ -191,7 +190,7 @@
         "version": "2.2.3"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.3"
     },
     "psr/cache": {
         "version": "1.0.1"
