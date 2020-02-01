@@ -46,12 +46,12 @@ class ProduitRepository  extends ServiceEntityRepository
                 ->andWhere('p.libelleProduit = :lib')
                 ->setParameter('lib',$famillesProd[$i]['libelleProduit'])
                     ->orderBy('p.prixuProduit','ASC')
-                ->setMaxResults(1);
-             $results[$i] = $query->getQuery()->getResult();
-             //dump($results[$i]);
-        }
-        return $results;
+                ->setMaxResults(1)
 
+            ;
+            $results[$i] = $query->getQuery()->getResult();
+            }
+                    return $results;
     }
 
     /**
@@ -96,6 +96,11 @@ class ProduitRepository  extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+
+    }
+
+    //return query to use it for pagination
+    public function getDisctProduitName_search_brand_gender_typeQuery(){
 
     }
 }
