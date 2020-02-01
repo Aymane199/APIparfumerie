@@ -16,11 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("api/order");
+ */
 class OrderController extends AbstractController
 {
     /**
+     * @Route("/add", name="add_order", methods={"POST"})
      * Create an order for a user
-     * @Route("/api/order/add", name="add_order", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
@@ -35,36 +38,22 @@ class OrderController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
         }
         // check attributes
-        if(!array_key_exists('id_produit', $data)
-        && !array_key_exists('id_client', $data)
-        && !array_key_exists('qty', $data)) {
+        if(!array_key_exists('products', $data)
+        || !array_key_exists('id_client', $data)) {
             return new JsonResponse([
                 'error' => 'Attributes required'
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $id_product = $data['id_produit'];
+        $products = $data['products'];
         $id_client = $data['id_client'];
-        $qty = $data['qty'];
-        if($qty < 1) {
-            return new JsonResponse([
-                'error' => 'Qty must be at least equal 1'
-            ], Response::HTTP_UNAUTHORIZED);
-        }
-
-        // agent
+        // Agent
         $user = $this->getUser();
 
-        // product
+        // Product
         $productRepository = $this->getDoctrine()->getManager()->getRepository(Produit::class);
-        $product = $productRepository->find($id_product);
-        if(is_null($product)) {
-            return new JsonResponse([
-                'error' => 'Product is not found'
-            ], Response::HTTP_UNAUTHORIZED);
-        }
 
-        // client
+        // Client
         $clientRepository = $this->getDoctrine()->getManager()->getRepository(Client::class);
         $client = $clientRepository->find($id_client);
         if(is_null($client)) {
@@ -76,28 +65,40 @@ class OrderController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         // create order
-        $unit = $product->getPrixuProduit();
-        $discount = $product->getDiscountProduit();
-        $shipping = $product->getShippingcostProduit();
+        $order = new Commande($client, $user);
 
-        $amount = ($unit - (($unit * $discount) / 100) +  $shipping) * $qty;
+        // order add items
+        foreach ($products as $pr) {
 
-        $order = new Commande();
-        //$order->addItem($product);
-        $order->setIdAgent($user);
-        $order->setDateCmd(new \DateTime());
-        $order->setIdClient($client);
-        $order->setMontantCmd($amount);
+            $product = $productRepository->find($pr['id_produit']);
+            if(is_null($product)) {
+                return new JsonResponse([
+                    'error' => 'Product '. $pr['id_produit'] .' not found'
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+            $qty = $pr['qty'];
+            if($qty < 1) {
+                return new JsonResponse([
+                    'error' => 'Qty must be at least equal 1'
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+
+            $unit = $product->getPrixuProduit();
+            $discount = $product->getDiscountProduit();
+            $shipping = $product->getShippingcostProduit();
+            $amount = ($unit - (($unit * $discount) / 100) +  $shipping) * $qty;
+
+            $orderItem = new LigneCommande($order, $product, $qty);
+
+            $order->setMontantCmd($amount);
+            $order->addItem($orderItem);
+        }
+
         $em->persist($order);
         $em->flush();
 
-        // create LigneCommande to store qty
-        $orderItem = new LigneCommande($order, $product, $qty);
-        $em->persist($orderItem);
-        $em->flush();
-
         $serializer = SerializerBuilder::create()->build();
-        $jms = $serializer->serialize($orderItem, 'json');
+        $jms = $serializer->serialize($order, 'json');
 
         $response = new Response($jms);
         $response->headers->set('Content-Type', 'application/json');
