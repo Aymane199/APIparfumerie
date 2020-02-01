@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
     "content-hash": "f72e2bd89d15122f5385e8b6276932b0",
+
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -2473,6 +2475,7 @@
             "time": "2019-11-29T13:03:07+00:00"
         },
         {
+
             "name": "lcobucci/jwt",
             "version": "3.3.1",
             "source": {
@@ -2569,6 +2572,7 @@
             },
             "autoload": {
                 "psr-4": {
+
                     "Lexik\\Bundle\\JWTAuthenticationBundle\\": ""
                 },
                 "exclude-from-classmap": [
@@ -2659,6 +2663,7 @@
             "autoload": {
                 "psr-4": {
                     "Namshi\\JOSE\\": "src/Namshi/JOSE/"
+
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2667,6 +2672,7 @@
             ],
             "authors": [
                 {
+
                     "name": "Alessandro Nadalin",
                     "email": "alessandro.nadalin@gmail.com"
                 },
@@ -2725,11 +2731,14 @@
                     "providers": [
                         "Carbon\\Laravel\\ServiceProvider"
                     ]
+
                 }
             },
             "autoload": {
                 "psr-4": {
+
                     "Carbon\\": "src/Carbon/"
+
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2738,6 +2747,7 @@
             ],
             "authors": [
                 {
+
                     "name": "Brian Nesbitt",
                     "email": "brian@nesbot.com",
                     "homepage": "http://nesbot.com"
@@ -2755,6 +2765,7 @@
                 "time"
             ],
             "time": "2020-01-21T09:36:43+00:00"
+
         },
         {
             "name": "ocramius/package-versions",
@@ -3111,6 +3122,84 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "sensio/framework-extra-bundle",
+            "version": "v5.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/98f0807137b13d0acfdf3c255a731516e97015de",
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.0",
+                "php": ">=7.1.3",
+                "symfony/config": "^4.3|^5.0",
+                "symfony/dependency-injection": "^4.3|^5.0",
+                "symfony/framework-bundle": "^4.3|^5.0",
+                "symfony/http-kernel": "^4.3|^5.0"
+            },
+            "conflict": {
+                "doctrine/doctrine-cache-bundle": "<1.3.1"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^1.11|^2.0",
+                "doctrine/orm": "^2.5",
+                "nyholm/psr7": "^1.1",
+                "symfony/browser-kit": "^4.3|^5.0",
+                "symfony/dom-crawler": "^4.3|^5.0",
+                "symfony/expression-language": "^4.3|^5.0",
+                "symfony/finder": "^4.3|^5.0",
+                "symfony/monolog-bridge": "^4.0|^5.0",
+                "symfony/monolog-bundle": "^3.2",
+                "symfony/phpunit-bridge": "^4.3.5|^5.0",
+                "symfony/psr-http-message-bridge": "^1.1",
+                "symfony/security-bundle": "^4.3|^5.0",
+                "symfony/twig-bundle": "^4.3|^5.0",
+                "symfony/yaml": "^4.3|^5.0",
+                "twig/twig": "^1.34|^2.4|^3.0"
+            },
+            "suggest": {
+                "symfony/expression-language": "",
+                "symfony/psr-http-message-bridge": "To use the PSR-7 converters",
+                "symfony/security-bundle": ""
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sensio\\Bundle\\FrameworkExtraBundle\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "This bundle provides a way to configure your controllers with annotations",
+            "keywords": [
+                "annotations",
+                "controllers"
+            ],
+            "time": "2019-12-27T08:57:19+00:00"
         },
         {
             "name": "symfony/cache",
