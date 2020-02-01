@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Commande
@@ -58,18 +59,17 @@ class Commande
     private $idClient;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Produit", mappedBy="numCmd")
+     * @OneToMany(targetEntity="LigneCommande", mappedBy="num_cmd")
      */
-    private $numProduit;
+    private $products;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->numProduit = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getNumCmd(): ?int
@@ -128,26 +128,25 @@ class Commande
     /**
      * @return Collection|Produit[]
      */
-    public function getNumProduit(): Collection
+    public function getProducts(): Collection
     {
-        return $this->numProduit;
+        return $this->products;
     }
 
-    public function addNumProduit(Produit $numProduit): self
+    public function addProducts(Produit $numProduit): self
     {
-        if (!$this->numProduit->contains($numProduit)) {
-            $this->numProduit[] = $numProduit;
-            $numProduit->addNumCmd($this);
+        if (!$this->products->contains($numProduit)) {
+            $this->products[] = $numProduit;
+            //$numProduit->addNumCmd($this);
         }
-
         return $this;
     }
 
-    public function removeNumProduit(Produit $numProduit): self
+    public function removeProducts(Produit $numProduit): self
     {
-        if ($this->numProduit->contains($numProduit)) {
-            $this->numProduit->removeElement($numProduit);
-            $numProduit->removeNumCmd($this);
+        if ($this->products->contains($numProduit)) {
+            $this->products->removeElement($numProduit);
+            //$numProduit->removeNumCmd($this);
         }
 
         return $this;
