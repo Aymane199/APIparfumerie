@@ -59,17 +59,18 @@ class Commande
     private $idClient;
 
     /**
-     *
-     * @OneToMany(targetEntity="LigneCommande", mappedBy="num_cmd")
+     * Une commande possède plusieurs ligne de commande
+     * @var \Commande
+     * @OneToMany(targetEntity="LigneCommande", mappedBy="commande")
      */
-    private $products;
+    private $items;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getNumCmd(): ?int
@@ -126,29 +127,26 @@ class Commande
     }
 
     /**
-     * @return Collection|Produit[]
+     * @return Collection|LigneCommande[]
      */
-    public function getProducts(): Collection
+    public function getItems(): Collection
     {
-        return $this->products;
+        return $this->items;
     }
 
-    public function addProducts(Produit $numProduit): self
+    public function addItem(Produit $produit): self
     {
-        if (!$this->products->contains($numProduit)) {
-            $this->products[] = $numProduit;
-            //$numProduit->addNumCmd($this);
+        if (!$this->items->contains($produit)) {
+            $this->items[] = $produit;
         }
         return $this;
     }
 
-    public function removeProducts(Produit $numProduit): self
+    public function removeItem(Produit $produit): self
     {
-        if ($this->products->contains($numProduit)) {
-            $this->products->removeElement($numProduit);
-            //$numProduit->removeNumCmd($this);
+        if ($this->items->contains($produit)) {
+            $this->items->removeElement($produit);
         }
-
         return $this;
     }
 

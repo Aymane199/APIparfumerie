@@ -21,12 +21,19 @@ class OrderController extends AbstractController
     /**
      * Create an order for a user
      * @Route("/api/order/add", name="add_order", methods={"POST"})
-     * @param Request
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
      */
-    public function addOrder(Request $request): JsonResponse
+    public function addOrder(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
 
+        if(is_null($data)) {
+            return new JsonResponse([
+                'error' => 'Body required'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
         // check attributes
         if(!array_key_exists('id_produit', $data)
         && !array_key_exists('id_client', $data)
@@ -39,6 +46,11 @@ class OrderController extends AbstractController
         $id_product = $data['id_produit'];
         $id_client = $data['id_client'];
         $qty = $data['qty'];
+        if($qty < 1) {
+            return new JsonResponse([
+                'error' => 'Qty must be at least equal 1'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
         // agent
         $user = $this->getUser();
@@ -46,10 +58,20 @@ class OrderController extends AbstractController
         // product
         $productRepository = $this->getDoctrine()->getManager()->getRepository(Produit::class);
         $product = $productRepository->find($id_product);
+        if(is_null($product)) {
+            return new JsonResponse([
+                'error' => 'Product is not found'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
         // client
         $clientRepository = $this->getDoctrine()->getManager()->getRepository(Client::class);
         $client = $clientRepository->find($id_client);
+        if(is_null($client)) {
+            return new JsonResponse([
+                'error' => 'Client is not found'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
         $em = $this->getDoctrine()->getManager();
 
@@ -58,12 +80,12 @@ class OrderController extends AbstractController
         $discount = $product->getDiscountProduit();
         $shipping = $product->getShippingcostProduit();
 
-        $amount = ($unit - ($unit * $discount) +  $shipping) * $qty;
+        $amount = ($unit - (($unit * $discount) / 100) +  $shipping) * $qty;
 
         $order = new Commande();
-        $order->addProducts($product);
+        //$order->addItem($product);
         $order->setIdAgent($user);
-        $order->setDateCmd(Carbon::now());
+        $order->setDateCmd(new \DateTime());
         $order->setIdClient($client);
         $order->setMontantCmd($amount);
         $em->persist($order);
@@ -75,8 +97,11 @@ class OrderController extends AbstractController
         $em->flush();
 
         $serializer = SerializerBuilder::create()->build();
-        $jms = $serializer->serialize($order, 'json');
+        $jms = $serializer->serialize($orderItem, 'json');
 
-        return new JsonResponse($jms, Response::HTTP_ACCEPTED);
+        $response = new Response($jms);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

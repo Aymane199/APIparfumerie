@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 class LigneCommande
 {
     /**
+     * Many LigneCommande have one Product
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="Produit")
      * @JoinColumn(name="num_produit", referencedColumnName="num_produit")
@@ -21,8 +22,9 @@ class LigneCommande
     private $produit;
 
     /**
+     * Plusieurs ligne de commande peuvent avoir une seule commande
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\ManyToOne(targetEntity="Commande", inversedBy="items")
      * @JoinColumn(name="num_cmd", referencedColumnName="num_cmd")
      */
     private $commande;
@@ -49,11 +51,6 @@ class LigneCommande
         $this->commande = $commande;
         $this->prix = $produit->getPrixuProduit();
         $this->qty = $qty;
-    }
-
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
     }
 
 
