@@ -159,6 +159,12 @@
             "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
         }
     },
+    "knplabs/knp-components": {
+        "version": "v2.3.1"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.1.1"
+    },
     "lcobucci/jwt": {
         "version": "3.3.1"
     },
@@ -179,7 +185,6 @@
     },
     "nesbot/carbon": {
         "version": "2.29.1"
-
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
