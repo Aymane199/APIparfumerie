@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Client;
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 use App\Service\Tools;
@@ -20,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * @Route("api/produit")
  */
-class ProductController extends AbstractController
+class ProduitController extends AbstractController
 {
 
     private $produitRep;
@@ -103,6 +104,39 @@ class ProductController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+    /**
+     * @Route("/{idProduit}/edit", name="produit_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $em = $this->getDoctrine()->getManager();
+        $product=$em->getRepository(Produit::class)->find($request->get('idProduit'));
+        $product->setLibelleProduit($data['libelle_produit'])
+            ->setMarque($data['marque'])
+            ->setType($data['type'])
+            ->setPrixuProduit($data['prixu_produit'])
+            ->setDiscountProduit($data['discount_produit'])
+            ->setUrlProduit( $data['url_produit'])
+            ->setShippingcostProduit($data['shippingcost_produit'])
+            ->setProfitProduit($data['profit_produit'])
+            ->setAttributesProduit($data['attributes_produit'])
+            ->setDescProduit($data['desc_produit']);
+
+        $em->flush();
+
+        return new Response('', Response::HTTP_OK);
+
+    }
+
+    /**
+     * @Route("/{idProduit}", name="produit_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Produit $produit): Response
+    {
+
     }
 
 
