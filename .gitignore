@@ -9,4 +9,9 @@
 /vendor/
 /.env
 /.idea
+.symfony
 ###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

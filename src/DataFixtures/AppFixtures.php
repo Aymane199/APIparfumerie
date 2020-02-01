@@ -28,6 +28,9 @@ class AppFixtures extends Fixture
         //Agent
         for($i = 0 ; $i<5 ;$i++) {
             $agent = new Agent();
+            $agent->setRoles(['ROLE_USER'])
+                ->setPassword('$2y$12$PnHrVHsxJxdWWCpICIWAZ.hqusPReayfLQgD6bkCFbmD.nble.OMy')
+                ->setEmail($faker->email);
             $manager->persist($agent);
         }
         //client
@@ -64,6 +67,7 @@ class AppFixtures extends Fixture
                     'genre' => 'homme',
                     'volume' => '50ml',
                 ))
+                ->setDescProduit($faker->paragraph)
                 ->setType("parfum")
                 ->setMarque($faker->company)
                 ->setDiscountProduit($faker->randomFloat(3,1,70))
