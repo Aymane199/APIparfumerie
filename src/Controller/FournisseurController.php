@@ -48,11 +48,12 @@ class FournisseurController extends AbstractController
     public function createAction(Request $request)
     {
         $data = $request->getContent();
+        dump($data);
         $fournisseur = $this->serializer->deserialize($data, 'App\Entity\Fournisseur', 'json');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($fournisseur);
-        $em->flush();
+        //$em->flush();
 
         return new Response('', Response::HTTP_CREATED);
     }
