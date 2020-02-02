@@ -68,6 +68,9 @@ class Commande
 
     /**
      * Constructor
+     * @param Client $client
+     * @param Agent $agent
+     * @throws \Exception
      */
     public function __construct(Client $client, Agent $agent)
     {
