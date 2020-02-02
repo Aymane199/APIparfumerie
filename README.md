@@ -19,7 +19,7 @@
 *Response*  
 ```json
 {
-    "totale": 11,
+    "total": 11,
     "page": 1,
     "data": [
         {
@@ -65,7 +65,7 @@ Json
 *Response*  
 ```json
 {
-    "totale": 11,
+    "total": 11,
     "page": 1,
     "data": [
         {
