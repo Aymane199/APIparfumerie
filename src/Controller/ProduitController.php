@@ -11,6 +11,7 @@ use App\Service\Tools;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,12 +90,19 @@ class ProduitController extends AbstractController
         return $response;
     }
     /**
-     * @Route("/{id}", name="getproduit")
+     * @Route("/{idProduit}", name="getproduit", methods={"GET","POST"})
      * @param Produit $produit
      * @return Response
      */
-    public function  getProduit(Produit $produit){
+    public function  getProduit(Request $request){
 
+        $em = $this->getDoctrine()->getManager();
+        $produit=$em->getRepository(Produit::class)->find($request->get('idProduit'));
+        if(is_null($produit)) {
+            return new JsonResponse([
+                'error' => 'id not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
         //serialisation
         $serializer = SerializerBuilder::create()->build();
         $JMSproduct=$serializer->serialize($produit, 'json');
@@ -134,11 +142,22 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{idProduit}", name="produit_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Produit $produit): Response
+    public function delete(Request $request): Response
     {
+        $data = json_decode($request->getContent(), true);
 
+        $em = $this->getDoctrine()->getManager();
+        $produit=$em->getRepository(Produit::class)->find($request->get('idProduit'));
+        if(is_null($produit)) {
+            return new JsonResponse([
+                'error' => 'id not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $em->remove($produit);
+        $em->flush();
+        return new Response('',Response::HTTP_OK);
     }
-
 
 
 }
