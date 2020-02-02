@@ -341,7 +341,120 @@ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_
 
 openssl pkey -in private.pem -out config/jwt/public.pem -pubout
 ```
+#### Récupérer la liste des agents
 
+`GET /api/agent  `
+
+
+Request
+```json
+
+```
+
+Response
+```json
+{
+    "total": 5,
+    "agent": [
+        {
+            "id_agent": 36,
+            "roles": [
+                "ROLE_USER"
+            ],
+            "email": "baumbach.glennie@gmail.com"
+        },
+
+```
+#### Récupérer un agent
+
+`GET /api/agent/{idAgent} `
+
+
+Request
+```json
+
+```
+
+Response
+```json
+
+{
+    "id_agent": 36,
+    "roles": [
+        "ROLE_USER"
+    ],
+    "email": "baumbach.glennie@gmail.com"
+}
+
+
+```
+#### Liste des orders passer par un agent
+
+`GET /api/agent/{idAgent}/orders `
+
+
+Request
+```json
+
+```
+
+Response
+```json
+{
+    "total": 2,
+    "order": [
+        {
+            "num_cmd": 24,
+            "date_cmd": "2020-02-01T22:45:06+00:00",
+            "montant_cmd": 598.856,
+            "id_agent": {
+                "id_agent": 36,
+                "roles": [
+                    "ROLE_USER"
+                ],
+                "email": "baumbach.glennie@gmail.com"
+            },
+            "id_client": {
+                "id_client": 251,
+                "nom_client": "Georgette",
+                "prenom_client": "Hilpert",
+                "adresse_client": "5933 Jed Motorway Apt. 980\nEast Bailee, DE 84285-3017",
+                "zip_code_client": 92006,
+                "country_client": "Burundi",
+                "telephone_client": "(819) 320-1666 x96171",
+                "email_client": "travon.thiel@yahoo.com"
+            },
+            "items": [
+                {
+                    "produit": {
+                        "num_produit": 81,
+                        "libelle_produit": "Connnn-Larkin",
+                        "marque": "Donnelly, Hodkiewicz and DuBuque",
+                        "type": "parfum",
+                        "prixu_produit": 314.902,
+                        "discount_produit": 17.051,
+                        "url_produit": "kunze.org",
+                        "shippingcost_produit": 38.22,
+                        "profit_produit": 36.932,
+                        "attributes_produit": {
+                            "genre": "homme",
+                            "image": [
+                                "https://empiric-bats.000webhostapp.com/Image1.png"
+                            ],
+                            "volume": "50ml"
+                        },
+                        "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+                        "id_fournisseur": []
+                    },
+                    "qty": 2,
+                    "prix": "315"
+                }
+            ]
+        },
+
+
+
+```
 ------------
 
 ## Commande (OrderController)
