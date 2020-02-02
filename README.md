@@ -63,9 +63,29 @@ Request
 ```
 *Response  *
 ```json
-{
+[
+    {
+        "num_produit": 81,
+        "libelle_produit": "Conn-Larkin",
+        "marque": "Donnelly, Hodkiewicz and DuBuque",
+        "type": "parfum",
+        "prixu_produit": 314.902,
+        "discount_produit": 17.051,
+        "url_produit": "kunze.org",
+        "shippingcost_produit": 38.22,
+        "profit_produit": 36.932,
+        "attributes_produit": {
+            "genre": "homme",
+            "image": [
+                "https://empiric-bats.000webhostapp.com/Image1.png"
+            ],
+            "volume": "50ml"
+        },
+        "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+        "id_fournisseur": []
+    }
+]
 
-}
 ```
 Json (Produit array[]) 
 
@@ -82,9 +102,28 @@ Request
 ```
 *Response  *
 ```json
+ 
 {
-
+    "num_produit": 91,
+    "libelle_produit": "Conn-Larkin",
+    "marque": "Donnelly, Hodkiewicz and DuBuque",
+    "type": "parfum",
+    "prixu_produit": 150.0,
+    "discount_produit": 17.051,
+    "url_produit": "copie.com",
+    "shippingcost_produit": 38.22,
+    "profit_produit": 36.932,
+    "attributes_produit": {
+        "genre": "femme",
+        "image": [
+            "https://empiric-bats.000webhostapp.com/Image1.png"
+        ],
+        "volume": "50ml"
+    },
+    "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+    "id_fournisseur": []
 }
+
 ```
 
 Json (Produit) 
@@ -135,6 +174,34 @@ Request
         }
 		
 ```
+*Response  *
+```json
+ 
+{
+    "num_produit": 91,
+    "libelle_produit": "Conn-Larkin",
+    "marque": "Donnelly, Hodkiewicz and DuBuque",
+    "type": "parfum",
+    "prixu_produit": 600.0,
+    "discount_produit": 17.051,
+    "url_produit": "copie.com",
+    "shippingcost_produit": 38.22,
+    "profit_produit": 36.932,
+    "attributes_produit": {
+        "genre": "femme",
+        "image": [
+            "https://empiric-bats.000webhostapp.com/Image1.png"
+        ],
+        "volume": "50ml"
+    },
+    "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+    "id_fournisseur": []
+}
+
+
+
+
+```
 ------------
 ####  Ajouter un produit
 
@@ -143,15 +210,52 @@ Request
 Request
 ```json
 {
-
+    "num_produit": 91,
+    "libelle_produit": "Conn-Larkin",
+    "marque": "Donnelly, Hodkiewicz and DuBuque",
+    "type": "parfum",
+    "prixu_produit": 600.0,
+    "discount_produit": 17.051,
+    "url_produit": "copie.com",
+    "shippingcost_produit": 38.22,
+    "profit_produit": 36.932,
+    "attributes_produit": {
+        "genre": "femme",
+        "image": [
+            "https://empiric-bats.000webhostapp.com/Image1.png"
+        ],
+        "volume": "50ml"
+    },
+    "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+    "id_fournisseur": []
 }
+
 ```
 
 *Response  *
 ```json
+ 
 {
-
+    "num_produit": 91,
+    "libelle_produit": "Conn-Larkin",
+    "marque": "Donnelly, Hodkiewicz and DuBuque",
+    "type": "parfum",
+    "prixu_produit": 600.0,
+    "discount_produit": 17.051,
+    "url_produit": "copie.com",
+    "shippingcost_produit": 38.22,
+    "profit_produit": 36.932,
+    "attributes_produit": {
+        "genre": "femme",
+        "image": [
+            "https://empiric-bats.000webhostapp.com/Image1.png"
+        ],
+        "volume": "50ml"
+    },
+    "desc_produit": "Ut sed et necessitatibus quam nobis doloribus voluptatibus neque. Enim ab et quae explicabo eos. Et et tenetur exercitationem veritatis molestiae ex. Molestiae aut ipsum in voluptatum saepe distinctio.",
+    "id_fournisseur": []
 }
+
 ```
 
 
