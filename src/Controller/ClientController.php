@@ -32,7 +32,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("     ", name="client_index", methods={"GET"})
+     * @Route("", name="client_index", methods={"GET"})
      * @param Request $request
      * @return Response
      */
@@ -102,7 +102,7 @@ class ClientController extends AbstractController
         return $response;
     }
 
-    /**
+    /**agent
      * @Route("/{idClient}", name="client_show", methods={"GET"})
      * @param Request $request
      * @return Response
