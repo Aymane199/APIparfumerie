@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -34,6 +35,7 @@ class Agent implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Exclude
      */
     private $password;
 

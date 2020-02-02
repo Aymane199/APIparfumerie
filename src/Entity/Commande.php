@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
+use Zend\Http\Header\Age;
 
 /**
  * Commande
@@ -61,15 +62,18 @@ class Commande
     /**
      * Une commande possède plusieurs ligne de commande
      * @var \Commande
-     * @OneToMany(targetEntity="LigneCommande", mappedBy="commande")
+     * @OneToMany(targetEntity="LigneCommande", mappedBy="commande", cascade={"persist"})
      */
     private $items;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(Client $client, Agent $agent)
     {
+        $this->idClient = $client;
+        $this->idAgent = $agent;
+        $this->dateCmd = new \DateTime();
         $this->items = new ArrayCollection();
     }
 
@@ -134,18 +138,18 @@ class Commande
         return $this->items;
     }
 
-    public function addItem(Produit $produit): self
+    public function addItem(LigneCommande $item): self
     {
-        if (!$this->items->contains($produit)) {
-            $this->items[] = $produit;
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
         }
         return $this;
     }
 
-    public function removeItem(Produit $produit): self
+    public function removeItem(LigneCommande $item): self
     {
-        if ($this->items->contains($produit)) {
-            $this->items->removeElement($produit);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
         }
         return $this;
     }
