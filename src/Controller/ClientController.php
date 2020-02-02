@@ -32,7 +32,9 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/", name="client_index", methods={"GET"})
+     * @Route("     ", name="client_index", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request): Response
     {
@@ -60,6 +62,8 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/new", name="client_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -100,6 +104,8 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/{idClient}", name="client_show", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
     public function show(Request $request): Response
     {
@@ -123,6 +129,8 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/{idClient}/edit", name="client_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function edit(Request $request): Response
     {
@@ -152,6 +160,8 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/{idClient}", name="client_delete", methods={"DELETE"})
+     * @param Request $request
+     * @return Response
      */
     public function delete(Request $request): Response
     {

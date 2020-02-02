@@ -43,13 +43,11 @@ class ProduitRepository  extends ServiceEntityRepository
         $results[0] = 0;
         for($i=0; $i<count($famillesProd) ;$i++){
             $query = $this->createQueryBuilder('p')
-                ->andWhere('p.libelleProduit = :lib')
-                ->setParameter('lib',$famillesProd[$i]['libelleProduit'])
-                    ->orderBy('p.prixuProduit','ASC')
-                ->setMaxResults(1)
-
-            ;
-            $results[$i] = $query->getQuery()->getResult();
+                ->andWhere('p.libelleProduit = :lib ')
+                ->setParameter('lib',  $famillesProd[$i]['libelleProduit'] )
+                ->orderBy('p.prixuProduit','ASC')
+                ->setMaxResults(1);
+            $results[$i] = $query->getQuery()->getResult()[0];
             }
                     return $results;
     }
@@ -81,14 +79,31 @@ class ProduitRepository  extends ServiceEntityRepository
         return  $query->getQuery()->getScalarResult();
 
     }
+    public function getAllProduct_search_brand_gender_type($brand=null, $search=null, $gender=null, $type=null ){
+        $query = $this->createQueryBuilder('p');
+        if($brand != null){
+            $query->andWhere('p.marque = :brand')
+                ->setParameter('brand',$brand);
+        }if($search != null){
+            $query->andWhere('p.libelleProduit LIKE :searchTerm OR p.attributesProduit LIKE :searchTerm')
+                ->setParameter('searchTerm','%'. $search .'%');
+        }if($gender != null){
+            $query->andWhere('p.attributesProduit LIKE :gender')
+                ->setParameter('gender','%'. $gender .'%');
+        }if($type != null) {
+            $query->andWhere('p.type = :type')
+                ->setParameter('type', $type);
+        }
+        return  $query->getQuery()->getResult();
 
+    }
     /**
      * @param Produit $produit
      */
     public function getSimilaires(Produit $produit){
         return $this->createQueryBuilder('p')
-            ->andWhere('p.libelleProduit = :lib')
-            ->setParameter('lib', $produit->getLibelleProduit())
+            ->andWhere('p.libelleProduit LIKE :lib')
+            ->setParameter('lib', '%' . $produit->getLibelleProduit() . '%')
             ->andWhere('p.numProduit != :numProd')
             ->setParameter('numProd', $produit->getNumProduit())
             ->orderBy('p.prixuProduit', 'ASC')
