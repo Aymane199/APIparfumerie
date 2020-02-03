@@ -77,7 +77,7 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/all", name="produits_filter",methods={"GET","POST"})
+     * @Route("/all", name="produits_filter_all",methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
