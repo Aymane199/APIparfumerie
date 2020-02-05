@@ -32,7 +32,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("", name="client_index", methods={"GET"})
+     * @Route("", name="client_index", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
