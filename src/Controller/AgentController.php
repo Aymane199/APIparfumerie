@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Entity\Client;
 use App\Entity\Commande;
+use App\Repository\CommandeRepository;
+use App\Service\Tools;
 use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AgentController extends AbstractController
 {
+    private $serializer;
+    private $commandeRep;
+    private $tools;
+    public function __construct(SerializerInterface $serializer,CommandeRepository $commandeRep ,Tools $tools)
+    {
+        $this->tools = $tools;
+        $this->commandeRep =$commandeRep ;
+        $this->serializer = $serializer;
+
+    }
 
     /**
      * @Route(name="api_login", path="/api/login_check")
@@ -91,6 +104,35 @@ class AgentController extends AbstractController
         }
         $arrayResponse['total'] = count($orders);
         $arrayResponse['order'] = $orders;
+        //serialisation
+        $serializer = SerializerBuilder::create()->build();
+        $JMSResponse=$serializer->serialize($arrayResponse, 'json');
+
+        //construction de la response json
+        $response = new Response($JMSResponse);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    /**
+     * @Route("/api/orders/agent", name="show_orders_by_email", methods={"GET"})
+     * @param Request $request
+     * @return Response
+     */
+    public function show_orders_by_email(Request $request): Response
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $orders=$this->commandeRep
+            ->findAllByEmailAgent($request->get('email'));
+
+        if(is_null($orders)) {
+            return new JsonResponse([
+                'error' => 'email not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
+        $arrayResponse['total'] = count($orders);
+        $arrayResponse['order'] = $orders;
+
         //serialisation
         $serializer = SerializerBuilder::create()->build();
         $JMSResponse=$serializer->serialize($arrayResponse, 'json');
