@@ -60,8 +60,6 @@ class ProduitRepository  extends ServiceEntityRepository
      * @return array
      */
     public function getDisctProduitName_search_brand_gender_type($brand=null, $search=null, $gender=null, $type=null ){
-
-        dd($brand);
         $query = $this->createQueryBuilder('p')
             ->select('p.libelleProduit');
         if($brand != null){
