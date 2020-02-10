@@ -10,10 +10,11 @@
 *Request*
 ```json
 {
-	"brand": "Marque",
+	"brand": ["COACH", "CHANEL"],
 	"search": "Boîte de recherche",
 	"gender": "homme",
 	"type": "Eau de parfum",
+    "page": 0
 }
 ```
 *Response*  

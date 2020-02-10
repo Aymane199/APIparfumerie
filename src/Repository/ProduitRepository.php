@@ -60,11 +60,13 @@ class ProduitRepository  extends ServiceEntityRepository
      * @return array
      */
     public function getDisctProduitName_search_brand_gender_type($brand=null, $search=null, $gender=null, $type=null ){
+
+        dd($brand);
         $query = $this->createQueryBuilder('p')
             ->select('p.libelleProduit');
         if($brand != null){
-            $query->andWhere('p.marque = :brand')
-                ->setParameter('brand',$brand);
+            $query->andWhere('p.marque IN (:brand)')
+                ->setParameter('brand', $brand);
         }if($search != null){
             $query->andWhere('p.libelleProduit LIKE :searchTerm OR p.attributesProduit LIKE :searchTerm')
                 ->setParameter('searchTerm','%'. $search .'%');
@@ -82,8 +84,8 @@ class ProduitRepository  extends ServiceEntityRepository
     public function getAllProduct_search_brand_gender_type($brand=null, $search=null, $gender=null, $type=null ){
         $query = $this->createQueryBuilder('p');
         if($brand != null){
-            $query->andWhere('p.marque = :brand')
-                ->setParameter('brand',$brand);
+            $query->andWhere('p.marque IN (:brand)')
+                ->setParameter('brand', $brand);
         }if($search != null){
             $query->andWhere('p.libelleProduit LIKE :searchTerm OR p.attributesProduit LIKE :searchTerm')
                 ->setParameter('searchTerm','%'. $search .'%');
