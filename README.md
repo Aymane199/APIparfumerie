@@ -687,7 +687,7 @@ Request
 
 #### Ajouter un client 
 
-` GET /api/client/add  `
+` GET /api/client/new  `
 
 *Request*
 ```json
