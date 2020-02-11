@@ -27,7 +27,7 @@ class CommandeRepository extends ServiceEntityRepository
             ->leftJoin(Agent::class,'a',Join::WITH,'a.idAgent = p.idAgent')
             ->andWhere('a.email = :val')
             ->setParameter('val', $value)
-            ->orderBy('p.dateCmd', 'ASC')
+            ->orderBy('p.dateCmd', 'DESC')
             ->getQuery()
             ->getResult()
             ;
